@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "42044841546",
+    "project_id": "fir-smartpoo-c7613",
+    "storage_bucket": "fir-smartpoo-c7613.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42044841546:android:b86d2f006452fd279290b3",
+        "android_client_info": {
+          "package_name": "com.example.firebase_smartpoo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN1S5AkICbJDG68XrYXiCbuqErLDo_4ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
