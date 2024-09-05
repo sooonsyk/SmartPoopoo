@@ -1,4 +1,4 @@
-//services/chatgpt_service.dart
+// chatgpt_service.dart
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -39,8 +39,7 @@ class ChatGptService {
             {
               'type': 'image_url',
               'image_url': {
-                'url':
-                    'https://www.nct.org.uk/sites/default/files/3to4.jpg', // Firebase에서 전달된 이미지 URL 사용하는 걸로 바꾸기
+                'url': imageUrl, // 선택된 이미지 URL을 전달
               }
             }
           ]

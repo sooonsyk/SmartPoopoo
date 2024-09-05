@@ -1,27 +1,15 @@
-//main.dart
-
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:firebase_smartpoo/screens/image_picker_screen.dart';
-import 'package:firebase_smartpoo/screens/image_description_screen.dart';
+import 'package:SmartPoopoo/screens/image_picker_screen.dart';
+import 'package:SmartPoopoo/screens/image_description_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // await FirebaseAppCheck.instance.activate(
-  //   appleProvider: AppleProvider.debug,
-  //   androidProvider: AndroidProvider.debug,
-  //  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,14 +31,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   String? selectedImageUrl;
   String defaultImageUrl =
-      'https://firebasestorage.googleapis.com/v0/b/fir-smartpoo-c7613.appspot.com/o/1.jpg?alt=media&token=66104d6b-57cf-4b21-a06b-16a5b9780851'; // 기본 이미지 URL
-
-  @override
-  void initState() {
-    super.initState();
-    // 기본적으로 선택된 이미지 URL을 초기화
-    selectedImageUrl = defaultImageUrl;
-  }
+      'https://www.nct.org.uk/sites/default/files/3to4.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +66,7 @@ class HomePageState extends State<HomePage> {
                 mainAxisSpacing: 16,
                 children: [
                   _buildMenuButton(context, "다이어리", () {}, "다이어리 버튼"),
-                  _buildMenuButton(context, "firebase", () async {
+                  _buildMenuButton(context, "사진촬영/불러오기", () async {
                     final result = await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -93,12 +74,12 @@ class HomePageState extends State<HomePage> {
                       ),
                     );
 
-                    if (result != null && result is Map) {
+                    if (result != null && result is String) {
                       setState(() {
-                        selectedImageUrl = result['imageUrl']; // 선택된 이미지로 업데이트
+                        selectedImageUrl = result;
                       });
 
-                      // 이미지 설명 화면으로 이동 (기본 이미지 혹은 선택된 이미지 사용)
+                      // 이미지 설명 화면으로 이동
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (mounted) {
                           Navigator.push(
@@ -113,7 +94,7 @@ class HomePageState extends State<HomePage> {
                         }
                       });
                     }
-                  }, "Firebase 버튼"),
+                  }, "사진촬영 앨범 버튼"),
                   _buildMenuButton(context, "요약통계", () {}, "요약통계 버튼"),
                   _buildMenuButton(context, "마이페이지", () {}, "마이페이지 버튼"),
                 ],

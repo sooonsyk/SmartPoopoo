@@ -1,7 +1,6 @@
 // screens/image_picker_screen.dart
 import 'package:flutter/material.dart';
-import 'package:firebase_smartpoo/services/chatgpt_service.dart';
-import 'package:firebase_smartpoo/services/storage_service.dart';
+import 'package:SmartPoopoo/services/chatgpt_service.dart';
 
 class ImagePickerScreen extends StatefulWidget {
   const ImagePickerScreen({super.key});
@@ -11,23 +10,17 @@ class ImagePickerScreen extends StatefulWidget {
 }
 
 class _ImagePickerScreenState extends State<ImagePickerScreen> {
-  final StorageService _storageService = StorageService();
   final ChatGptService _chatGptService = ChatGptService();
-  List<String> imageUrls = [];
+  List<String> imageUrls = [
+    'https://www.nct.org.uk/sites/default/files/3to4.jpg',
+    'https://assets.babycenter.com/ims/2009/09sep/poo01_424x302.jpg'
+  ];
   String? selectedImageUrl;
   String? imageDescription;
 
   @override
   void initState() {
     super.initState();
-    _loadImages();
-  }
-
-  Future<void> _loadImages() async {
-    final urls = await _storageService.getImages();
-    setState(() {
-      imageUrls = urls;
-    });
   }
 
   Future<void> _fetchImageDescription(String imageUrl) async {
