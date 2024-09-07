@@ -65,8 +65,8 @@ class HomePageState extends State<HomePage> {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 children: [
-                  _buildMenuButton(context, "다이어리", () {}, "다이어리 버튼"),
-                  _buildMenuButton(context, "사진촬영/불러오기", () async {
+                  _buildMenuButton(context, "사진촬영", () {}, "사진촬영 버튼"),
+                  _buildMenuButton(context, "앨범에서 가져오기", () async {
                     final result = await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -94,7 +94,7 @@ class HomePageState extends State<HomePage> {
                         }
                       });
                     }
-                  }, "사진촬영 앨범 버튼"),
+                  }, "앨범에서 가져오기 버튼"),
                   _buildMenuButton(context, "요약통계", () {}, "요약통계 버튼"),
                   _buildMenuButton(context, "마이페이지", () {}, "마이페이지 버튼"),
                 ],
