@@ -6,12 +6,12 @@ import 'config.dart' as config;
 
 class ChatGptService {
   // 환경 변수에서 API 키와 BASE URL 가져오기
-  final String apiKey = config.APIKEY;
+  final String apiKey = config.apiKey;
 
   // 이미지 설명을 가져오는 함수
   Future<String> fetchImageDescription(String imageUrl) async {
     // OpenAI API의 URI
-    final uri = Uri.parse(config.URI);
+    final uri = Uri.parse(config.CHAT_ENDPOINT);
 
     // 요청에 사용될 헤더
     final headers = {
@@ -34,7 +34,7 @@ class ChatGptService {
             {
               'type': 'text',
               'text':
-                  '이 이미지에서 변이 의미하는 건강 상태를 설명해줘. 한국어로만 대답해주고, 배경이나 손가락 등이 아니라 오로지 변에만 집중해줘.'
+                  '이 이미지에서 변이 의미하는 건강 상태를 세 문장 정도로 설명해줘. 한국어로만 대답해주고, 배경이나 손가락 등이 아니라 오로지 변에만 집중해줘.'
             },
             {
               'type': 'image_url',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:SmartPoopoo/common_widgets.dart';
 import 'package:SmartPoopoo/screens/image_picker_screen.dart';
-import 'package:SmartPoopoo/screens/image_description_screen.dart';
+import 'package:SmartPoopoo/screens/image_detection_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,14 +39,19 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100),
+        preferredSize: const Size.fromHeight(120),
         child: AppBar(
-          title: const Text(
-            '스마트푸푸',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+          title: Semantics(
+            label: '당신의 스마트푸푸입니다. 아래에서 원하는 서비스를 선택하세요.', // 이 라벨만 읽히고
+            child: const ExcludeSemantics(
+              child: Text(
+                '스마트푸푸',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
           centerTitle: true,
@@ -65,8 +71,16 @@ class HomePageState extends State<HomePage> {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 children: [
-                  _buildMenuButton(context, "사진촬영", () {}, "사진촬영 버튼"),
-                  _buildMenuButton(context, "앨범에서 가져오기", () async {
+                  buildMenuButton(context, "사진촬영", () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const ImageDetectionScreen(), // ImageDetectionScreen으로 이동
+                      ),
+                    );
+                  }, "사진촬영 버튼"),
+                  buildMenuButton(context, "앨범에서 가져오기", () async {
                     final result = await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -78,55 +92,12 @@ class HomePageState extends State<HomePage> {
                       setState(() {
                         selectedImageUrl = result;
                       });
-
-                      // 이미지 설명 화면으로 이동
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        if (mounted) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ImageDescriptionScreen(
-                                imageUrl: selectedImageUrl ??
-                                    defaultImageUrl, // 선택되지 않으면 기본 이미지 사용
-                              ),
-                            ),
-                          );
-                        }
-                      });
                     }
                   }, "앨범에서 가져오기 버튼"),
-                  _buildMenuButton(context, "요약통계", () {}, "요약통계 버튼"),
-                  _buildMenuButton(context, "마이페이지", () {}, "마이페이지 버튼"),
                 ],
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuButton(BuildContext context, String title,
-      VoidCallback onPressed, String semanticsLabel) {
-    return Semantics(
-      label: semanticsLabel,
-      button: true,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF445DF6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.all(20),
-        ),
-        child: Text(
-          title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
         ),
       ),
     );
