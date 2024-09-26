@@ -63,21 +63,20 @@ def smartpoopoo():
         
         if not first_answer:
             # 재촬영 필요
-            audio_failed = gpt_model.speak("기저귀에 똥이 없어요.")
-            return jsonify({'error': 'No poopoo detected', 'audio': audio_failed}), 400
+            return jsonify({'error': '똥이 없어요'}), 400
         
         else :
-            # 크롭된 이미지를 Base64로 변환
-            #cropped_image_pil = Image.fromarray(detected_diaper)
+            # # 크롭된 이미지를 Base64로 변환
+            # #cropped_image_pil = Image.fromarray(detected_diaper)
             
-            cropped_image_pil = Image.fromarray(input_img)
-            buffered = io.BytesIO()
-            cropped_image_pil.save(buffered, format="JPEG")
-            cropped_image_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+            # cropped_image_pil = Image.fromarray(input_img)
+            # buffered = io.BytesIO()
+            # cropped_image_pil.save(buffered, format="JPEG")
+            # cropped_image_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
             
-            first_answer['cropped_image'] = cropped_image_base64
+            # first_answer['cropped_image'] = cropped_image_base64
 
-            # 응답 반환 - 크롭된 이미지(Base64)와 첫 답변 반환
+            # 응답 반환 - session_id, response 반환 (+크로크롭된 이미지(Base64))
             return jsonify(first_answer), 200
 
     # 오류 발생 시
@@ -127,20 +126,24 @@ def ask():
     
     # 세션 ID와 추가 질문을 음성으로 받아옴
     data = request.form
-    session_id = data.get("session_id")
-    audio_file = request.files.get("audio")
+    session_id, question = data.get("session_id", "question")
+    #audio_file = request.files.get("audio")
     
     if not session_id or session_id not in conversations:
             return jsonify({"error": "Invalid or missing session_id"}), 400
+        
+    if not question:
+             return jsonify({"error": "No qeustion provided"}), 400
 
-    if not audio_file:
-            return jsonify({"error": "No audio file provided"}), 400
+    #stt 프론트에서 진행하면 불필요한 부분
+    # if not audio_file:
+    #         return jsonify({"error": "No audio file provided"}), 400
 
-    # speach to text
-    question = gpt_model.client.audio.transcriptions.create(
-        model = "whisper-1", 
-        file = audio_file
-    )
+    # # speach to text
+    # question = gpt_model.client.audio.transcriptions.create(
+    #     model = "whisper-1", 
+    #     file = audio_file
+    # )
         
     # 대화 기록에 추가 질문을 저장
     conversations[session_id].append({"role": "user", "content": question})

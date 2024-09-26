@@ -12,7 +12,6 @@ API_KEY= os.getenv("API_KEY")
 GPT_URL = "https://api.openai.com/v1/chat/completions"
 
 
-
 # GPT-4o API 호출 함수
 def call_gpt4o(messages):
     headers = {
@@ -71,24 +70,23 @@ def start(base64_image, conversations):
         else:
             # GPT의 답변을 대화 기록에 추가
             conversations[session_id].append({"role": "assistant", "content": response})
-            audio_response = speak(response)
             
-            return {"session_id": session_id, "response": response, "audio": audio_response}
+            return {"session_id": session_id, "response": response}
         
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# tts 프론트에서 진행 예정
+# speaker = OpenAI(api_key=API_KEY)
 
-speaker = OpenAI(api_key=API_KEY)
-
-# text to speach
-def speak(text):
+# # text to speach
+# def speak(text):
     
-    response = speaker.audio.speech.create(
-        model = "tts-1",
-        input = text,
-        voice = "alloy",
-        response_format = "mp3",
-        speed = 1.0
-    )
-    return response
+#     response = speaker.audio.speech.create(
+#         model = "tts-1",
+#         input = text,
+#         voice = "alloy",
+#         response_format = "mp3",
+#         speed = 1.0
+#     )
+#     return response
