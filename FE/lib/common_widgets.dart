@@ -21,7 +21,7 @@ Widget buildMenuButton(BuildContext context, String title,
         title,
         style: const TextStyle(
           color: Colors.white,
-          fontSize: 30,
+          fontSize: 40,
           fontWeight: FontWeight.bold,
         ),
       ),

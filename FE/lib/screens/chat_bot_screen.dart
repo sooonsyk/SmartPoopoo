@@ -61,7 +61,9 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
             _sendMessageFromVoice();
           }
         });
-      });
+      
+      },
+      localeId : 'ko_KR');
     }
   }
 
