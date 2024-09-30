@@ -10,11 +10,9 @@ def white_patch(image, percentile=100):
     return white_patch_image
 
 # 이미지 전처리 함수
-#############33 base64로 이미지가 들어오는 거에 맞춰서 수정해야함
-def img_preprocess(image_path):
+def img_preprocess(input_image):
     
     # 이미지를 불러온 후 AWB 적용
-    input_image = io.imread(image_path)
     white_balanced_image = white_patch(input_image)
     pil_image = Image.fromarray(white_balanced_image)
 

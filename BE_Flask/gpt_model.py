@@ -75,18 +75,3 @@ def start(base64_image, conversations):
         
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-# tts 프론트에서 진행 예정
-# speaker = OpenAI(api_key=API_KEY)
-
-# # text to speach
-# def speak(text):
-    
-#     response = speaker.audio.speech.create(
-#         model = "tts-1",
-#         input = text,
-#         voice = "alloy",
-#         response_format = "mp3",
-#         speed = 1.0
-#     )
-#     return response
